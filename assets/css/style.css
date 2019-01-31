@@ -1,0 +1,15 @@
+body{
+    font-family: initial;
+}
+
+.jumbotron{
+    background: rgb(105, 105, 107);
+    color: white;
+    border: 2px solid rgb(17, 5, 182);
+}
+
+.train-header{
+    background: rgb(105, 105, 107);
+    color: white;
+    border: 2px solid rgb(17, 5, 182);
+}
