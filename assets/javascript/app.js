@@ -13,10 +13,9 @@ $(document).ready(function() {
 
         var database = firebase.database();
 
-        $("#submit").on("click", function(event) {
-            event.preventDefault();
+        currentTime = moment().format('HH:mm');
 
-            console.log("hey");
+        $("#submit").on("click", function() {
         
             var trainName = $("#train-name").val().trim();
             var firstTime = $("#first-time").val().trim();
@@ -38,11 +37,25 @@ $(document).ready(function() {
 
             var snapVal = snapshot.val();
 
+            var firstTimeConverted = moment(snapVal.firstTime, "HH:mm").subtract(1, 'year');
+
+            var difference = moment().diff(moment(firstTimeConverted), "minutes");
+
+            var remainder = difference % snapVal.frequency;
+
+            var minutesUntil = snapVal.frequency - remainder;
+
+            var nextTrain = moment(currentTime, 'HH:mm').add(minutesUntil, 'minutes');
+
+            nextTrain = nextTrain.format('HH:mm');
+
             var name = $("<td>").text(snapVal.trainName);
             var dest = $("<td>").text(snapVal.destination);
-            var freq = $("<td>").text(snapVal.frequency);
+            var freq = $("<td>").text(snapVal.frequency + " mins");
+            var next = $("<td>").text(nextTrain);
+            var mins = $("<td>").text(minutesUntil + " mins");
         
-            var train = $("<tr>").append(name, dest, freq);
+            var train = $("<tr>").append(name, dest, freq, next, mins);
 
             tbody.append(train);
 
