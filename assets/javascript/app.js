@@ -15,8 +15,6 @@ $(document).ready(function() {
 
         var database = firebase.database();
 
-        let currentTime = moment().format('HH:mm');
-
         $("#submit").on("click", function() {
         
             var trainName = $("#train-name").val().trim();
